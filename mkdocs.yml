@@ -1,0 +1,97 @@
+site_name: My Docs
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      use_pygments: true
+      auto_title: true
+      linenums: true
+      anchor_linenums: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.snippets
+  - pymdownx.keys
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.critic
+  - pymdownx.details
+  - toc:
+      permalink: true
+      toc_depth: 6
+  - tables
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+
+plugins:
+  - search
+  - git-revision-date
+  # - tags # insiders
+
+theme:
+  name: material
+  custom_dir: overrides
+  icon:
+    repo: fontawesome/brands/git-alt
+    logo: material/library
+  font:
+    text: Roboto
+  palette:
+    - scheme: default
+      accent: red
+      primary: black
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate 
+      accent: red
+      primary: black
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+    
+  features:
+    - search.suggest
+    - search.highlight
+    - search.share
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    # - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - toc.integrate
+    - navigation.top
+
+extra:
+  generator: true
+  analytics:
+    provider: google
+    property: UA-XXXXXXXX-X
+  alternate:
+    - name: English
+      link: /en/ 
+      lang: en
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/squidfunk
+    - icon: fontawesome/brands/github
+      link: https://github.com/killswitch-GUI/simplysalt.io
+
+repo_url: https://github.com/killswitch-GUI/simplysalt.io
+repo_name: killswitch-GUI/simplysalt.io
+copyright: Copyright &copy; 2022 - 2022 simplysalt.io
