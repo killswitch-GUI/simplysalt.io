@@ -9,7 +9,7 @@ on:
 jobs:
   # Deploy docs to github
   deploy:
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       # Checkout source form GitHub
