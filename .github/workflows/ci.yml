@@ -1,0 +1,57 @@
+name: ci
+on:
+  push:
+    branches:
+      - main
+
+# Jobs to run
+jobs:
+  # Deploy docs to github
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout source form GitHub
+      - uses: actions/checkout@v2
+
+      # Install Python runtime and dependencies
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: Pip Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip
+
+      - name: Install Poetry
+        run: |
+          pip install poetry
+          poetry config installer.parallel true --local
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+
+      - name: Poetry Cache
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install Dependencies
+        run: |
+          poetry install
+
+      # Set configuration for repository and deploy documentation
+      - env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_NAME: ${{ secrets.GH_NAME }}
+          GH_EMAIL: ${{ secrets.GH_EMAIL }}
+        run: |
+          REMOTE="https://${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}"
+          git config --global user.name "${GH_NAME}"
+          git config --global user.email "${GH_EMAIL}"
+          git remote set-url origin ${REMOTE}
+      - run: |
+          poetry run mkdocs gh-deploy --force
+          poetry run mkdocs --version
